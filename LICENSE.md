@@ -29,8 +29,10 @@ Subject to the terms and conditions of this License, the Licensor grants You
 a non-exclusive, non-transferable, non-sublicensable, royalty-free right to:
 
 a) View, download, and modify the Software for internal use;
+
 b) Use the Software to connect systems, applications, or services to the
    Tawala Platform;
+   
 c) Deploy the Software internally within your organization.
 
 -------------------------------------------------------------------------------
@@ -40,11 +42,15 @@ c) Deploy the Software internally within your organization.
 You may NOT:
 
 a) Use the Software to provide a Competing Service;
+
 b) Offer the Software as part of a hosted or managed service that competes
    with the Platform;
+   
 c) Sell, license, sublicense, or distribute the Software to third parties,
    whether in source or binary form;
+   
 d) Remove, alter, or obscure any licensing, copyright, or branding notices;
+
 e) Represent the Software or any derivative work as an official Tawala product.
 
 -------------------------------------------------------------------------------
