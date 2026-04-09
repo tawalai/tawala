@@ -1,5 +1,3 @@
-
-
 from tawala.types.ai_model import AIModel
 from tawala.utils.http import HttpClient
 
@@ -9,13 +7,17 @@ class AIModelRepository:
         self.http = http
 
     def list(self) -> list[AIModel]:
-        return self.http.get("/models")
+        response = self.http.get("/models")
+        return [AIModel.model_validate(model) for model in response]
 
-    def create(self, data) -> AIModel:
-        return self.http.post("/models", json=data)
+    def create(self, data: AIModel) -> AIModel:
+        response = self.http.post("/models", json=data)
+        return AIModel.model_validate(response)
     
     def get(self, id: str) -> AIModel:
-        return self.http.get(f"/models/{id}")
+        response = self.http.get(f"/models/{id}")
+        return AIModel.model_validate(response)
     
     def update(self, id: str, data) -> AIModel:
-        return self.http.put(f"/models/{id}", json=data)
+        response = self.http.put(f"/models/{id}", json=data)
+        return AIModel.model_validate(response)
