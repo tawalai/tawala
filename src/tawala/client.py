@@ -1,7 +1,7 @@
 # client.py
 from tawala.config import Config
 from tawala.utils.http import HttpClient
-from tawala.resources.models import ModelResource
+from tawala.repositories.ai_model_repo import AIModel
 
 class TawalaClient:
     def __init__(self, api_key: str, base_url: str = "https://api.tawala.ai"):
@@ -9,4 +9,4 @@ class TawalaClient:
         self.http = HttpClient(self.config)
 
         # resources
-        self.models = ModelResource(self.http)
+        self.models = AIModel(self.http)

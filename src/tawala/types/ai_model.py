@@ -4,4 +4,4 @@ from pydantic import BaseModel
 class AIModel(BaseModel):
     id: str
     name: str
-    created_at: str
+    model_type: str

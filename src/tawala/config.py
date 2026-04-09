@@ -1,4 +1,5 @@
 from pydantic import BaseModel
 
 class Config(BaseModel):
-    pass
+    api_key: str
+    base_url: str
