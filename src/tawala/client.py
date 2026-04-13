@@ -1,5 +1,7 @@
 # client.py
 from tawala.config import Config
+from tawala.repositories.risk_instance_repo import RiskInstanceRepository
+from tawala.repositories.risk_repo import RiskRepository
 from tawala.utils.http import HttpClient
 from tawala.repositories.ai_model_repo import AIModelRepository
 
@@ -10,3 +12,5 @@ class TawalaClient:
 
         # resources
         self.models = AIModelRepository(self.http)
+        self.risks = RiskRepository(self.http)
+        self.risk_instances = RiskInstanceRepository(self.http)
