@@ -1,7 +1,7 @@
 import json
 import os
 from tawala.client import TawalaClient
-from tawala.types.ai_model import AIModel
+from tawala.types.ai_system import AISystemRead
 from tawala.types.risk import Risk
 from tawala.types.risk_instance import RiskInstanceCreate
 from tawala.types.enums import RiskLevel, RiskStatus
@@ -9,16 +9,16 @@ from tawala.types.enums import RiskLevel, RiskStatus
 def main():
     api_key = os.getenv("TAWALA_API_KEY", "YOUR_API_KEY")
     tawala_host = os.getenv("TAWALA_HOST", "https://platformapi.tawala.ai")
-    client = TawalaClient(api_key=api_key, base_url=tawala_host)
-    model_list: list[AIModel] = client.models.list()
+    client: TawalaClient = TawalaClient(api_key=api_key, base_url=tawala_host)
+    system_list: list[AISystemRead] = client.systems.list()
     
-    sample_model = model_list[0]
+    system = system_list[0]
     
     risks: list[Risk] = client.risks.list()
     risk: Risk = risks[0]
     
     risk_instance: RiskInstanceCreate = RiskInstanceCreate(
-        ai_system_id=sample_model.id,
+        ai_system_id=system.id,
         risk_id=risk.id,
         likelihood=RiskLevel.High,
         impact=RiskLevel.High,

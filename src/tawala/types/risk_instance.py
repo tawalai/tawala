@@ -24,7 +24,7 @@ class RiskInstanceBase(BaseModel):
 class RiskInstanceCreate(RiskInstanceBase):
     risk_id: UUID
     ai_system_id: UUID
-    owner_id: Optional[UUID] = None
+    owner_id: UUID = None
 
     collaborators: Optional[List[UUID]] = None
 

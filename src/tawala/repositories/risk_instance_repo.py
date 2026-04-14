@@ -7,7 +7,7 @@ class RiskInstanceRepository:
     def __init__(self, http: HttpClient):
         self.http = http
         
-    def __objectify(self, data: RiskInstanceCreate | RiskInstanceUpdate) -> json:
+    def __objectify(self, data: RiskInstanceCreate | RiskInstanceUpdate):
         return json.loads(data.model_dump_json())
 
     def list(self) -> list[RiskInstanceRead]:
