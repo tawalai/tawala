@@ -1,8 +1,9 @@
+import json
 import os
 from tawala.client import TawalaClient
 from tawala.types.ai_model import AIModel
 from tawala.types.risk import Risk
-from tawala.types.risk_instance import RiskInstance
+from tawala.types.risk_instance import RiskInstanceCreate
 from tawala.types.enums import RiskLevel, RiskStatus
 
 def main():
@@ -16,7 +17,7 @@ def main():
     risks: list[Risk] = client.risks.list()
     risk: Risk = risks[0]
     
-    risk_instance: RiskInstance = RiskInstance(
+    risk_instance: RiskInstanceCreate = RiskInstanceCreate(
         ai_system_id=sample_model.id,
         risk_id=risk.id,
         likelihood=RiskLevel.High,
@@ -25,7 +26,7 @@ def main():
         status=RiskStatus.Identified
     )
     
-    client.risk_instances.create(risk_instance.model_dump_json())
+    client.risk_instances.create(risk_instance)
     
     
     
