@@ -1,29 +1,24 @@
-# app/schemas/user.py
-from pydantic import BaseModel, EmailStr, ConfigDict
+"""User type definitions for the Tawala SDK.
+
+Defines Pydantic models for user data management.
+"""
+from pydantic import BaseModel, EmailStr
 from typing import Optional
 from uuid import UUID
 from datetime import datetime
 
-class UserBase(BaseModel):
-    email: EmailStr
-    name: Optional[str]
-    role: Optional[str]
-    is_active: Optional[bool] = True
-
-class UserCreate(UserBase):
-    # password: str
-    organization_id: UUID
-
-class UserUpdate(BaseModel):
-    email: Optional[EmailStr]
-    name: Optional[str]
-    role: Optional[str]
-    is_active: Optional[bool]
-
-class UserRead(UserBase):
+class User(BaseModel):
+    """User model representing a user in the Tawala platform.
+    
+    Attributes:
+        id: Unique identifier for the user.
+        email: User's email address (must be valid).
+        created_at: Timestamp when the user account was created.
+        name: User's display name.
+        role: User's role in the system.
+    """
     id: UUID
-    # organization_id: UUID
     email: EmailStr
     created_at: datetime
-    
-    model_config = ConfigDict(from_attributes=True)
+    name: Optional[str]
+    role: Optional[str]
