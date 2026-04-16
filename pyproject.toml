@@ -1,20 +1,35 @@
 [project]
-name = "tawala"
+name = "tawala-gov"
 version = "0.1.0"
-description = "Python client for tawala.ai"
+description = "Python SDK for Tawala.ai"
 authors = [
-  { name = "Your Name", email = "you@example.com" }
+  { name = "Tawala dev team", email = "info@tawala.ai" }
 ]
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = [
   "requests",
-  "pydantic"
+  "pydantic",
+  "hatch>=1.16.5",
+]
+license = { file = "LICENSE.md" }
+
+classifiers = [
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Operating System :: OS Independent",
+  "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 
-[build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
+[project.urls]
+"Homepage" = "https://github.com/tawalai/tawala"
 
-[tool.setuptools.packages.find]
-where = ["src"]
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+where = ["src/tawala"]
