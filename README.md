@@ -1,10 +1,12 @@
-# Tawala
+![Tawala Logo](./tawala_logo.svg)
+
+# Tawala AI SDK
 
 Official Tawala SDK and platform connector. Provides secure APIs, data models, and governance-aware mechanisms to exchange AI-related data with the Tawala Platform.
 
 ## Description
 
-Tawala is a comprehensive platform for AI governance and risk management. This Python SDK serves as the official client library, enabling developers to programmatically interact with the Tawala platform. It offers secure APIs for managing AI models, systems, risk instances, treatments, and more, ensuring compliance and governance in AI deployments.
+Tawala https://www.tawala.ai/ is a comprehensive platform for AI governance and risk management. This Python SDK serves as the official client library, enabling developers to programmatically interact with the Tawala platform. It offers secure APIs for managing AI models, systems, risk instances, treatments, and more, ensuring compliance and governance in AI deployments.
 
 Key features include:
 - Authentication and secure API access
@@ -50,3 +52,7 @@ Run these examples after installing the package to see the SDK in action.
 ## License
 
 This project is licensed under the Tawala Custom Source-Available License. See the LICENSE.md file for details.
+
+## Contacts
+
+For any information please contact the Tawala.ai team at info@tawala.ai
