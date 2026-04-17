@@ -1,6 +1,6 @@
 [project]
 name = "tawala-gov"
-version = "0.1.0"
+version = "0.1.1"
 description = "Python SDK for Tawala.ai"
 authors = [
   { name = "Tawala dev team", email = "info@tawala.ai" }

@@ -10,7 +10,7 @@ Usage:
     then run: python add_risk_instance.py
 """
 import os
-from tawala.client import TawalaClient
+from tawala import TawalaClient
 from tawala.types.ai_system import AISystemRead
 from tawala.types.risk import Risk
 from tawala.types.risk_instance import RiskInstanceCreate

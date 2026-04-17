@@ -9,7 +9,7 @@ Usage:
     then run: python list_models.py
 """
 import os
-from tawala.client import TawalaClient
+from tawala import TawalaClient
 
 def main():
     """List all AI models using the Tawala client.
