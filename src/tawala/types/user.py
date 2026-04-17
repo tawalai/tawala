@@ -2,7 +2,7 @@
 
 Defines Pydantic models for user data management.
 """
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
 from typing import Optional
 from uuid import UUID
 from datetime import datetime
@@ -12,13 +12,13 @@ class User(BaseModel):
     
     Attributes:
         id: Unique identifier for the user.
-        email: User's email address (must be valid).
+        email: User's email address.
         created_at: Timestamp when the user account was created.
         name: User's display name.
         role: User's role in the system.
     """
     id: UUID
-    email: EmailStr
+    email: str
     created_at: datetime
     name: Optional[str]
     role: Optional[str]
