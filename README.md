@@ -53,6 +53,15 @@ Run these examples after installing the package to see the SDK in action.
 
 This project is licensed under the Tawala Custom Source-Available License. See the LICENSE.md file for details.
 
+## Third-party libraries
+
+This project may integrate with third-party open-source libraries such as:
+- transformers
+- huggingface_hub
+- torch
+
+These components remain subject to their respective licenses.
+
 ## Contacts
 
 For any information please contact the Tawala.ai team at info@tawala.ai
