@@ -10,44 +10,11 @@ from tawala import TawalaClient
 
 from tawala.policy.rule import Rule
 from tawala.policy.engine import PolicyEngine
+from tawala.policy.std_rules import BartLargeTextRule
 from tawala.types.ai_system import AISystemRead
 from tawala.types.enums import RiskLevel, RiskStatus
 from tawala.types.risk import Risk
 from tawala.types.risk_instance import RiskInstanceCreate
-
-class ViolenceRule(Rule):
-    """Custom rule that detects violent keywords in text content.
-    
-    This rule checks for the presence of violent keywords (kill, attack, bomb)
-    in the provided context and denies requests that contain them.
-    """
-    
-    def apply(self, context: dict):
-        """Apply the violence detection rule.
-        
-        Args:
-            context (dict): A dictionary containing contextual information,
-                expected to have a 'text' key with string content to evaluate.
-        
-        Returns:
-            dict: A decision dictionary with keys:
-                - 'decision' (str): Either 'allow' or 'deny'
-                - 'reason' (str): Optional explanation of the decision
-                - 'risk' (str): Optional risk level assessment
-        """
-        keywords = ["kill", "attack", "bomb"]
-        
-        text = context.get("text", "").lower()
-
-        for word in keywords:
-            if word in text:
-                return {
-                    "decision": "deny",
-                    "reason": f"Violent keyword detected: {word}",
-                    "risk": "high"
-                }
-
-        return {"decision": "allow"}
 
 
 if __name__ == "__main__":
@@ -59,7 +26,7 @@ if __name__ == "__main__":
     system: AISystemRead = client.systems.list()[0]
     
     engine = PolicyEngine()
-    engine.add_rule(ViolenceRule())
+    engine.add_rule(BartLargeTextRule())
 
     sample = {"text": "Do not attack or bomb anyone."}
     result = engine.evaluate(sample)
