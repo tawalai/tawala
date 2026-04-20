@@ -1,4 +1,10 @@
 
+"""Example demonstrating how to create and apply a custom guard rule.
+
+This example shows how to implement a custom Rule that detects violent language,
+apply it through a PolicyEngine, and create risk instances in the Tawala system
+when policy violations are detected.
+"""
 import os
 from tawala import TawalaClient
 
@@ -10,7 +16,25 @@ from tawala.types.risk import Risk
 from tawala.types.risk_instance import RiskInstanceCreate
 
 class ViolenceRule(Rule):
+    """Custom rule that detects violent keywords in text content.
+    
+    This rule checks for the presence of violent keywords (kill, attack, bomb)
+    in the provided context and denies requests that contain them.
+    """
+    
     def apply(self, context):
+        """Apply the violence detection rule.
+        
+        Args:
+            context (dict): A dictionary containing contextual information,
+                expected to have a 'text' key with string content to evaluate.
+        
+        Returns:
+            dict: A decision dictionary with keys:
+                - 'decision' (str): Either 'allow' or 'deny'
+                - 'reason' (str): Optional explanation of the decision
+                - 'risk' (str): Optional risk level assessment
+        """
         keywords = ["kill", "attack", "bomb"]
         
         text = context.get("text", "").lower()
