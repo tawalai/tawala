@@ -38,6 +38,9 @@ The `examples/` folder contains sample scripts to help you get started with comm
 
 - `add_risk_instance.py`: Demonstrates how to create and add a new risk instance to the platform.
 - `list_models.py`: Shows how to retrieve and display a list of available AI models.
+- `custom_guard_rule.py`: Demonstrates how to implement a new rule and attach it to the Policy Engine. 
+- `standard_guard_rule.py`: Demonstrates how to implement a Policy Engine with a core Tawala rule. 
+
 
 Run these examples after installing the package to see the SDK in action.
 
