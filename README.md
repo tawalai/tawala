@@ -16,7 +16,11 @@ Key features include:
 
 ## Installation
 
-The "pip install tawala" will be soon available, in the meanwhile you can clone and copy this repo.
+Use the official command ([PyPi](https://pypi.org/project/tawala-gov/) channel):
+
+```
+pip install tawala-gov
+```
 
 ## Usage
 
@@ -46,7 +50,7 @@ Run these examples after installing the package to see the SDK in action.
 
 ## Next Steps
 
-- **Get Started**: Follow the installation steps above and run the example scripts.
+- **Get Started**: Follow the installation steps above to get the `tawala-gov` package.
 - **API Documentation**: Refer to the docstrings in the source code or visit the official Tawala documentation for detailed API references.
 - **Authentication**: Obtain your API key from the Tawala platform dashboard.
 - **Contributing**: Report bugs or feature requests on the project's issue tracker.
