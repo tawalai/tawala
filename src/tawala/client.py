@@ -35,6 +35,15 @@ class TawalaClient:
         """
         self.logger = logging.getLogger("tawala.client")
         
+        stream_handler = logging.StreamHandler()
+        stream_handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
+        
+        file_handler = logging.FileHandler("tawala.client.log")
+        file_handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
+        
+        self.logger.addHandler(stream_handler)
+        self.logger.addHandler(file_handler)
+        
         if debug:
             self.logger.setLevel(logging.DEBUG)
         else:
