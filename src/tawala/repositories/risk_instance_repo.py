@@ -44,6 +44,10 @@ class RiskInstanceRepository:
         Returns:
             List of RiskInstanceRead objects.
         """
+        
+        if self.logger:
+            self.logger.debug("GET /risks/instances")
+        
         response = self.http.get("/risks/instances")
         return [RiskInstanceRead.model_validate(model) for model in response]
 
@@ -56,6 +60,10 @@ class RiskInstanceRepository:
         Returns:
             RiskInstanceRead object with the created risk instance.
         """
+        
+        if self.logger:
+            self.logger.debug("POST /risks/instances")
+        
         response = self.http.post("/risks/instances", json=self.__objectify(data))
         return RiskInstanceRead.model_validate(response)
     
@@ -68,6 +76,10 @@ class RiskInstanceRepository:
         Returns:
             RiskInstanceRead object for the specified risk instance.
         """
+        
+        if self.logger:
+            self.logger.debug(f"GET /risks/instances/{id}")
+        
         response = self.http.get(f"/risks/instances/{id}")
         return RiskInstanceRead.model_validate(response)
     
@@ -81,5 +93,9 @@ class RiskInstanceRepository:
         Returns:
             RiskInstanceRead object with the updated risk instance.
         """
+        
+        if self.logger:
+            self.logger.debug(f"UPDATE /risks/instances/{id}")
+        
         response = self.http.put(f"/risks/instances/{id}", json=data)
         return RiskInstanceRead.model_validate(response)
