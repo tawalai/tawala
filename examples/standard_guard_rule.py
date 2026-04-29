@@ -8,7 +8,7 @@ when policy violations are detected.
 import os
 from tawala import TawalaClient
 
-from tawala.policy.rule import Rule
+from tawala.guard import TawalaGuard
 from tawala.policy.engine import PolicyEngine
 from tawala.policy.std_rules import BartLargeTextRule
 from tawala.types.ai_system import AISystemRead
@@ -27,9 +27,11 @@ if __name__ == "__main__":
     
     engine = PolicyEngine()
     engine.add_rule(BartLargeTextRule())
+    
+    guard = TawalaGuard(engine)
 
     sample = {"text": "Do not attack or bomb anyone."}
-    result = engine.evaluate(sample)
+    result = guard.evaluate(sample)
     
     if result['decision'] == 'deny':
     
