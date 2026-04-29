@@ -15,15 +15,18 @@ class AIModelRepository:
     
     Attributes:
         http: HTTP client for making API requests.
+        logger: Optional logger for logging AIModelRepository operations.
     """
     
-    def __init__(self, http: HttpClient):
+    def __init__(self, http: HttpClient, logger=None):
         """Initialize the AI Model repository.
         
         Args:
             http: HTTP client instance for making requests.
+            logger: Optional logger for logging AIModelRepository operations.
         """
         self.http = http
+        self.logger = logger
         
     def __objectify(self, data: AIModelCreate | AIModelUpdate):
         """Convert Pydantic model to dictionary.

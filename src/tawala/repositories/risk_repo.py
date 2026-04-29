@@ -13,15 +13,18 @@ class RiskRepository:
     
     Attributes:
         http: HTTP client for making API requests.
+        logger: Optional logger for logging RiskRepository operations.
     """
     
-    def __init__(self, http: HttpClient):
+    def __init__(self, http: HttpClient, logger=None):
         """Initialize the Risk repository.
         
         Args:
             http: HTTP client instance for making requests.
+            logger: Optional logger for logging RiskRepository operations.
         """
         self.http = http
+        self.logger = logger
 
     def list(self) -> list[Risk]:
         """Retrieve all risks.

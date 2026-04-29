@@ -14,15 +14,18 @@ class RiskInstanceRepository:
     
     Attributes:
         http: HTTP client for making API requests.
+        logger: Optional logger for logging RiskInstanceRepository operations.
     """
     
-    def __init__(self, http: HttpClient):
+    def __init__(self, http: HttpClient, logger=None):
         """Initialize the Risk Instance repository.
         
         Args:
             http: HTTP client instance for making requests.
+            logger: Optional logger for logging RiskInstanceRepository operations.
         """
         self.http = http
+        self.logger = logger
         
     def __objectify(self, data: RiskInstanceCreate | RiskInstanceUpdate):
         """Convert Pydantic model to dictionary.

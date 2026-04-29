@@ -15,15 +15,18 @@ class AISystemRepository:
     
     Attributes:
         http: HTTP client for making API requests.
+        logger: Optional logger for logging AISystemRepository operations.
     """
     
-    def __init__(self, http: HttpClient):
+    def __init__(self, http: HttpClient, logger=None):
         """Initialize the AI System repository.
         
         Args:
             http: HTTP client instance for making requests.
+            logger: Optional logger for logging AISystemRepository operations.
         """
         self.http = http
+        self.logger = logger
         
     def __objectify(self, data: AISystemCreate | AISystemUpdate):
         """Convert Pydantic model to dictionary.
