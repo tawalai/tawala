@@ -45,6 +45,10 @@ class AISystemRepository:
         Returns:
             List of AISystemRead objects.
         """
+        
+        if self.logger:
+            self.logger.debug("GET /ai-portfolio/systems")
+        
         response = self.http.get("/ai-portfolio/systems")
         return [AISystemRead.model_validate(model) for model in response]
 
@@ -57,6 +61,10 @@ class AISystemRepository:
         Returns:
             AISystemRead object with the created system.
         """
+        
+        if self.logger:
+            self.logger.debug("POST /ai-portfolio/systems")
+        
         response = self.http.post("/ai-portfolio/systems", json=self.__objectify(data))
         return AISystemRead.model_validate(response)
     
@@ -69,6 +77,10 @@ class AISystemRepository:
         Returns:
             AISystemRead object for the specified system.
         """
+        
+        if self.logger:
+            self.logger.debug("GET /ai-portfolio/systems/{id}")
+        
         response = self.http.get(f"/ai-portfolio/systems/{id}")
         return AISystemRead.model_validate(response)
     
@@ -82,5 +94,9 @@ class AISystemRepository:
         Returns:
             AISystemRead object with the updated system.
         """
+        
+        if self.logger:
+            self.logger.debug("PUT /ai-portfolio/systems/{id}")
+        
         response = self.http.put(f"/ai-portfolio/systems/{id}", json=self.__objectify(data))
         return AISystemRead.model_validate(response)
