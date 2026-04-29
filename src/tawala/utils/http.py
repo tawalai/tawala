@@ -12,9 +12,10 @@ class HttpClient:
     Attributes:
         base_url: Base URL for all API requests.
         api_key: API key for authentication.
+        logger: Optional logger for logging HTTP requests and responses.
     """
     
-    def __init__(self, config):
+    def __init__(self, config, logger=None):
         """Initialize the HTTP client.
         
         Args:
@@ -22,6 +23,7 @@ class HttpClient:
         """
         self.base_url = config.base_url
         self.api_key = config.api_key
+        self.logger = logger
 
     def _headers(self):
         """Generate HTTP headers for API requests.
@@ -48,6 +50,10 @@ class HttpClient:
             requests.HTTPError: If the HTTP request fails.
             ValueError: If the response is not valid JSON.
         """
+        
+        if self.logger:
+            self.logger.debug(f"GET {self.base_url + path}")
+        
         response = requests.get(self.base_url + path, headers=self._headers(), params=params)
         try:
             response.raise_for_status()
@@ -74,6 +80,10 @@ class HttpClient:
             requests.HTTPError: If the HTTP request fails.
             ValueError: If the response is not valid JSON.
         """
+        
+        if self.logger:
+            self.logger.debug(f"POST {self.base_url + path}")
+        
         response = requests.post(self.base_url + path, headers=self._headers(), json=json)
         try:
             response.raise_for_status()

@@ -3,6 +3,7 @@
 Provides the TawalaClient class which serves as the main entry point for interacting
 with the Tawala platform API.
 """
+import logging
 from tawala.config import Config
 from tawala.repositories.ai_system_repo import AISystemRepository
 from tawala.repositories.risk_instance_repo import RiskInstanceRepository
@@ -24,18 +25,27 @@ class TawalaClient:
         risk_instances: Repository for managing risk instances.
     """
     
-    def __init__(self, api_key: str, base_url: str = "https://platformapi.tawala.ai"):
+    def __init__(self, api_key: str, base_url: str = "https://platformapi.tawala.ai", debug: bool = False):
         """Initialize the Tawala client.
         
         Args:
             api_key: API key for authentication with the Tawala platform.
             base_url: Base URL for the Tawala API (defaults to production URL).
+            debug: Enable debug mode (defaults to False).
         """
+        self.logger = logging.getLogger("tawala.client")
+        
+        if debug:
+            self.logger.setLevel(logging.DEBUG)
+        else:
+            self.logger.setLevel(logging.INFO)
+        
+        
         self.config = Config(api_key=api_key, base_url=base_url)
-        self.http = HttpClient(self.config)
+        self.http = HttpClient(self.config, logger=self.logger)
 
         # resources
-        self.systems = AISystemRepository(self.http)
-        self.models = AIModelRepository(self.http)
-        self.risks = RiskRepository(self.http)
-        self.risk_instances = RiskInstanceRepository(self.http)
+        self.systems = AISystemRepository(self.http, logger=self.logger)
+        self.models = AIModelRepository(self.http, logger=self.logger)
+        self.risks = RiskRepository(self.http, logger=self.logger)
+        self.risk_instances = RiskInstanceRepository(self.http, logger=self.logger)
