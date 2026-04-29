@@ -45,6 +45,10 @@ class AIModelRepository:
         Returns:
             List of AIModelRead objects.
         """
+        
+        if self.logger:
+            self.logger.debug("GET /ai-portfolio/models")
+        
         response = self.http.get("/ai-portfolio/models")
         return [AIModelRead.model_validate(model) for model in response]
 
@@ -57,6 +61,10 @@ class AIModelRepository:
         Returns:
             AIModelRead object with the created model.
         """
+        
+        if self.logger:
+            self.logger.debug("POST /ai-portfolio/models")
+        
         response = self.http.post("/ai-portfolio/models", json=self.__objectify(data))
         return AIModelRead.model_validate(response)
     
@@ -69,6 +77,10 @@ class AIModelRepository:
         Returns:
             AIModelRead object for the specified model.
         """
+        
+        if self.logger:
+            self.logger.debug(f"GET /ai-portfolio/models/{id}")
+        
         response = self.http.get(f"/ai-portfolio/models/{id}")
         return AIModelRead.model_validate(response)
     
@@ -82,5 +94,9 @@ class AIModelRepository:
         Returns:
             AIModelRead object with the updated model.
         """
+        
+        if self.logger:
+            self.logger.debug(f"PUT /ai-portfolio/models/{id}")
+        
         response = self.http.put(f"/ai-portfolio/models/{id}", json=self.__objectify(data))
         return AIModelRead.model_validate(response)
