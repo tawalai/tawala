@@ -32,6 +32,10 @@ class RiskRepository:
         Returns:
             List of Risk objects.
         """
+        
+        if self.logger:
+            self.logger.debug("GET /risks")
+        
         response = self.http.get("/risks")
         return [Risk.model_validate(model) for model in response]
 
@@ -44,6 +48,10 @@ class RiskRepository:
         Returns:
             Risk object with the created risk.
         """
+        
+        if self.logger:
+            self.logger.debug("POST /risks")
+        
         response = self.http.post("/risks", json=data)
         return Risk.model_validate(response)
     
@@ -56,6 +64,10 @@ class RiskRepository:
         Returns:
             Risk object for the specified risk.
         """
+        
+        if self.logger:
+            self.logger.debug(f"GET /risks/{id}")
+        
         response = self.http.get(f"/risks/{id}")
         return Risk.model_validate(response)
     
@@ -69,5 +81,9 @@ class RiskRepository:
         Returns:
             Risk object with the updated risk.
         """
+        
+        if self.logger:
+            self.logger.debug(f"PUT /risks/{id}")
+        
         response = self.http.put(f"/risks/{id}", json=data)
         return Risk.model_validate(response)

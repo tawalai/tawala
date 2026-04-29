@@ -95,7 +95,7 @@ class RiskInstanceRepository:
         """
         
         if self.logger:
-            self.logger.debug(f"UPDATE /risks/instances/{id}")
+            self.logger.debug(f"PUT /risks/instances/{id}")
         
         response = self.http.put(f"/risks/instances/{id}", json=data)
         return RiskInstanceRead.model_validate(response)
