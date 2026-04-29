@@ -10,6 +10,7 @@ from tawala.repositories.risk_instance_repo import RiskInstanceRepository
 from tawala.repositories.risk_repo import RiskRepository
 from tawala.utils.http import HttpClient
 from tawala.repositories.ai_model_repo import AIModelRepository
+from tawala.utils.tawala_logger import TawalaLogger
 
 class TawalaClient:
     """Main client for interacting with the Tawala AI Risk Management platform.
@@ -33,16 +34,8 @@ class TawalaClient:
             base_url: Base URL for the Tawala API (defaults to production URL).
             debug: Enable debug mode (defaults to False).
         """
-        self.logger = logging.getLogger("tawala.client")
         
-        stream_handler = logging.StreamHandler()
-        stream_handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
-        
-        file_handler = logging.FileHandler("tawala.client.log")
-        file_handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
-        
-        self.logger.addHandler(stream_handler)
-        self.logger.addHandler(file_handler)
+        self.logger = TawalaLogger(name="tawala.client").get_logger()
         
         if debug:
             self.logger.setLevel(logging.DEBUG)
