@@ -8,6 +8,7 @@ from tawala.utils.config import Config
 from tawala.repositories.ai_system_repo import AISystemRepository
 from tawala.repositories.risk_instance_repo import RiskInstanceRepository
 from tawala.repositories.risk_repo import RiskRepository
+from tawala.utils.exceptions import TawalaConfigurationError
 from tawala.utils.http import HttpClient
 from tawala.repositories.ai_model_repo import AIModelRepository
 from tawala.utils.tawala_logger import TawalaLogger
@@ -34,6 +35,9 @@ class TawalaClient:
             base_url: Base URL for the Tawala API (defaults to production URL).
             debug: Enable debug mode (defaults to False).
         """
+        
+        if not api_key or api_key == "YOUR_API_KEY":
+            raise TawalaConfigurationError("API key is required")
         
         self.logger = TawalaLogger(name="tawala.client").get_logger()
         
