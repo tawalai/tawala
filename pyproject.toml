@@ -1,6 +1,6 @@
 [project]
 name = "tawala-gov"
-version = "0.1.2"
+version = "0.1.3"
 description = "Python SDK for Tawala.ai"
 authors = [
   { name = "Tawala dev team", email = "info@tawala.ai" }
@@ -12,6 +12,7 @@ dependencies = [
   "pydantic",
   "hatch>=1.16.5",
   "transformers>=5.5.4",
+  "urllib3>=2.6.3",
 ]
 license = { file = "LICENSE.md" }
 

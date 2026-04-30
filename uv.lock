@@ -1337,13 +1337,14 @@ wheels = [
 
 [[package]]
 name = "tawala-gov"
-version = "0.1.1"
+version = "0.1.3"
 source = { editable = "." }
 dependencies = [
     { name = "hatch" },
     { name = "pydantic" },
     { name = "requests" },
     { name = "transformers" },
+    { name = "urllib3" },
 ]
 
 [package.metadata]
@@ -1352,6 +1353,7 @@ requires-dist = [
     { name = "pydantic" },
     { name = "requests" },
     { name = "transformers", specifier = ">=5.5.4" },
+    { name = "urllib3", specifier = ">=2.6.3" },
 ]
 
 [[package]]
