@@ -7,8 +7,6 @@ import requests
 from tawala.utils.config import Config
 from tawala.utils.exceptions import TawalaAPIError, TawalaAuthenticationError, TawalaTimeoutError
 
-DEFAULT_TIMEOUT = 5
-
 class HttpClient:
     """HTTP client for making authenticated requests to the Tawala API.
     
@@ -28,6 +26,7 @@ class HttpClient:
         """
         self.base_url = config.base_url
         self.api_key = config.api_key
+        self.timeout = config.default_timeout
         self.logger = logger
 
     def _headers(self):
@@ -63,7 +62,7 @@ class HttpClient:
             response = requests.get(
                 self.base_url + path,
                 headers=self._headers(),
-                timeout=DEFAULT_TIMEOUT,
+                timeout=self.timeout,
                 params=params
             )
         except requests.exceptions.Timeout as exc:
@@ -111,7 +110,7 @@ class HttpClient:
             response = requests.post(
                 self.base_url + path,
                 headers=self._headers(),
-                timeout=DEFAULT_TIMEOUT,
+                timeout=self.timeout,
                 json=json
             )
         except requests.exceptions.Timeout as exc:

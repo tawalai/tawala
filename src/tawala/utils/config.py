@@ -10,6 +10,8 @@ class Config(BaseModel):
     Attributes:
         api_key: API key for authentication with the Tawala platform.
         base_url: Base URL for the Tawala API endpoint.
+        default_timeout: Default timeout for API requests in seconds.
     """
     api_key: str
     base_url: str
+    default_timeout: int = 5
