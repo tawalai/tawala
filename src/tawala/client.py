@@ -4,7 +4,7 @@ Provides the TawalaClient class which serves as the main entry point for interac
 with the Tawala platform API.
 """
 import logging
-from tawala.config import Config
+from tawala.utils.config import Config
 from tawala.repositories.ai_system_repo import AISystemRepository
 from tawala.repositories.risk_instance_repo import RiskInstanceRepository
 from tawala.repositories.risk_repo import RiskRepository
