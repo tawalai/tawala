@@ -6,6 +6,7 @@ import requests
 
 from tawala.utils.config import Config
 from tawala.utils.exceptions import TawalaAPIError, TawalaAuthenticationError, TawalaTimeoutError
+from urllib3.util.retry import Retry
 
 class HttpClient:
     """HTTP client for making authenticated requests to the Tawala API.
@@ -15,6 +16,8 @@ class HttpClient:
     Attributes:
         base_url: Base URL for all API requests.
         api_key: API key for authentication.
+        session: Session object for making requests.
+        timeout: Request timeout in seconds.
         logger: Optional logger for logging HTTP requests and responses.
     """
     
@@ -26,8 +29,19 @@ class HttpClient:
         """
         self.base_url = config.base_url
         self.api_key = config.api_key
+        self.session = requests.Session()
         self.timeout = config.default_timeout
         self.logger = logger
+        
+        retry_strategy = Retry(
+            total=3,  # max retries
+            backoff_factor=0.5,  # exponential backoff
+            status_forcelist=[429, 500, 502, 503, 504],
+            allowed_methods=["GET", "POST"],
+        )
+        
+        adapter = requests.adapters.HTTPAdapter(max_retries=retry_strategy)
+        self.session.mount(self.base_url, adapter)
 
     def _headers(self):
         """Generate HTTP headers for API requests.
@@ -59,7 +73,7 @@ class HttpClient:
             self.logger.debug(f"GET {self.base_url + path}")
         
         try:
-            response = requests.get(
+            response = self.session.get(
                 self.base_url + path,
                 headers=self._headers(),
                 timeout=self.timeout,
@@ -67,6 +81,8 @@ class HttpClient:
             )
         except requests.exceptions.Timeout as exc:
             raise TawalaTimeoutError(f"GET {self.base_url + path} request timed out") from exc
+        except requests.exceptions.ConnectionError as exc:
+            raise TawalaAPIError(f"GET {self.base_url + path} request failed: {exc}") from exc
 
         try:
             response.raise_for_status()
@@ -107,7 +123,7 @@ class HttpClient:
             self.logger.debug(f"POST {self.base_url + path}")
         
         try:
-            response = requests.post(
+            response = self.session.post(
                 self.base_url + path,
                 headers=self._headers(),
                 timeout=self.timeout,
@@ -115,6 +131,8 @@ class HttpClient:
             )
         except requests.exceptions.Timeout as exc:
             raise TawalaTimeoutError(f"POST {self.base_url + path} request timed out") from exc
+        except requests.exceptions.ConnectionError as exc:
+            raise TawalaAPIError(f"GET {self.base_url + path} request failed: {exc}") from exc
         
         try:
             response.raise_for_status()
