@@ -4,6 +4,8 @@ Provides the HttpClient class which handles authentication and API communication
 """
 import requests
 
+from tawala.utils.config import Config
+
 class HttpClient:
     """HTTP client for making authenticated requests to the Tawala API.
     
@@ -15,7 +17,7 @@ class HttpClient:
         logger: Optional logger for logging HTTP requests and responses.
     """
     
-    def __init__(self, config, logger=None):
+    def __init__(self, config: Config, logger=None):
         """Initialize the HTTP client.
         
         Args:
