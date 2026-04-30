@@ -5,5 +5,21 @@ It includes repositories for managing AI systems, models, risks, and risk instan
 """
 
 from .client import TawalaClient
+from .utils.exceptions import (
+    TawalaException,
+    TawalaAPIError,
+    TawalaAuthenticationError,
+    TawalaValidationError,
+    TawalaConfigurationError,
+    TawalaPolicyError
+)
 
-__all__ = ["TawalaClient"]
+__all__ = [
+    "TawalaClient",
+    "TawalaException",
+    "TawalaAPIError",
+    "TawalaAuthenticationError", 
+    "TawalaValidationError",
+    "TawalaConfigurationError",
+    "TawalaPolicyError"
+]
