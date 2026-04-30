@@ -5,7 +5,9 @@ Provides the HttpClient class which handles authentication and API communication
 import requests
 
 from tawala.utils.config import Config
-from tawala.utils.exceptions import TawalaAPIError, TawalaAuthenticationError
+from tawala.utils.exceptions import TawalaAPIError, TawalaAuthenticationError, TawalaTimeoutError
+
+DEFAULT_TIMEOUT = 5
 
 class HttpClient:
     """HTTP client for making authenticated requests to the Tawala API.
@@ -57,11 +59,15 @@ class HttpClient:
         if self.logger:
             self.logger.debug(f"GET {self.base_url + path}")
         
-        response = requests.get(
-            self.base_url + path,
-            headers=self._headers(),
-            params=params
-        )
+        try:
+            response = requests.get(
+                self.base_url + path,
+                headers=self._headers(),
+                timeout=DEFAULT_TIMEOUT,
+                params=params
+            )
+        except requests.exceptions.Timeout as exc:
+            raise TawalaTimeoutError(f"GET {self.base_url + path} request timed out") from exc
 
         try:
             response.raise_for_status()
@@ -101,7 +107,16 @@ class HttpClient:
         if self.logger:
             self.logger.debug(f"POST {self.base_url + path}")
         
-        response = requests.post(self.base_url + path, headers=self._headers(), json=json)
+        try:
+            response = requests.post(
+                self.base_url + path,
+                headers=self._headers(),
+                timeout=DEFAULT_TIMEOUT,
+                json=json
+            )
+        except requests.exceptions.Timeout as exc:
+            raise TawalaTimeoutError(f"POST {self.base_url + path} request timed out") from exc
+        
         try:
             response.raise_for_status()
         except requests.HTTPError as exc:
