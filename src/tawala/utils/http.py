@@ -5,6 +5,7 @@ Provides the HttpClient class which handles authentication and API communication
 import requests
 
 from tawala.utils.config import Config
+from tawala.utils.exceptions import TawalaAPIError, TawalaAuthenticationError
 
 class HttpClient:
     """HTTP client for making authenticated requests to the Tawala API.
@@ -56,12 +57,26 @@ class HttpClient:
         if self.logger:
             self.logger.debug(f"GET {self.base_url + path}")
         
-        response = requests.get(self.base_url + path, headers=self._headers(), params=params)
+        response = requests.get(
+            self.base_url + path,
+            headers=self._headers(),
+            params=params
+        )
+
         try:
             response.raise_for_status()
         except requests.HTTPError as exc:
-            raise requests.HTTPError(
-                f"GET {response.url} failed with status {response.status_code}: {response.text}") from exc
+            
+            if response.status_code == 401:
+                raise TawalaAuthenticationError(
+                    f"Authentication failed: {response.text}", 
+                    status_code=response.status_code
+                ) from exc
+            else:
+                raise TawalaAPIError(
+                    f"GET API {response.url} request failed with status {response.status_code}: {response.text}",
+                    status_code=response.status_code
+                ) from exc
 
         try:
             return response.json()
@@ -90,8 +105,17 @@ class HttpClient:
         try:
             response.raise_for_status()
         except requests.HTTPError as exc:
-            raise requests.HTTPError(
-                f"POST {response.url} failed with status {response.status_code}: {response.text}") from exc
+            
+            if response.status_code == 401:
+                raise TawalaAuthenticationError(
+                    f"Authentication failed: {response.text}", 
+                    status_code=response.status_code
+                ) from exc
+            else:
+                raise TawalaAPIError(
+                    f"POST API {response.url} request failed with status {response.status_code}: {response.text}", 
+                    status_code=response.status_code
+                ) from exc
 
         try:
             return response.json()
