@@ -27,3 +27,7 @@ class TawalaConfigurationError(TawalaException):
 class TawalaPolicyError(TawalaException):
     """Exception raised for policy evaluation errors."""
     pass
+
+class TawalaTimeoutError(TawalaException):
+    """Exception raised for request timeouts."""
+    pass
